@@ -27,7 +27,10 @@ async function SmeContent() {
 
   // Verification Gate
   if (smeProfile?.verification_status !== 'verified') {
-    return <VerificationGate status={smeProfile?.verification_status || 'unverified'} />;
+    return <VerificationGate 
+      status={smeProfile?.verification_status || 'unverified'} 
+      reason={smeProfile?.rejection_reason}
+    />;
   }
 
   const businessName = smeProfile?.business_name || "My Business";
@@ -45,7 +48,7 @@ async function SmeContent() {
         </Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Orders</CardTitle>

@@ -17,6 +17,7 @@ interface DocumentUploadProps {
 export function DocumentUpload({ userId, role, currentDocuments = [], onUploadComplete }: DocumentUploadProps) {
   const supabase = createClient();
   const [uploading, setUploading] = useState(false);
+  const [removing, setRemoving] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +72,48 @@ export function DocumentUpload({ userId, role, currentDocuments = [], onUploadCo
     }
   };
 
+  const handleRemove = async (index: number) => {
+    setRemoving(index);
+    try {
+      const docToRemove = currentDocuments[index];
+
+      // 1. Remove from Storage
+      if (docToRemove.path) {
+          const { error: storageError } = await supabase.storage
+            .from('documents')
+            .remove([docToRemove.path]);
+          
+          if (storageError) {
+              console.warn("Storage removal warning:", storageError);
+          }
+      }
+
+      // 2. Update Database
+      const updatedDocs = currentDocuments.filter((_, i) => i !== index);
+      
+      let table = 'sme_profiles';
+      if (role === 'logistics') table = 'logistics_profiles';
+      if (role === 'rider') table = 'rider_profiles';
+
+      const { error: dbError } = await supabase
+        .from(table)
+        .update({ 
+          documents: updatedDocs
+        })
+        .eq('id', userId);
+
+      if (dbError) throw dbError;
+
+      onUploadComplete(updatedDocs);
+
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Failed to remove document");
+    } finally {
+      setRemoving(null);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
@@ -107,7 +150,18 @@ export function DocumentUpload({ userId, role, currentDocuments = [], onUploadCo
                     <span className="text-xs text-muted-foreground">{new Date(doc.uploaded_at).toLocaleDateString()}</span>
                   </div>
                 </div>
-                <CheckCircle className="h-4 w-4 text-green-500" />
+                <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={() => handleRemove(i)}
+                        disabled={removing === i || uploading}
+                    >
+                        {removing === i ? <Loader2 className="h-4 w-4 animate-spin" /> : <X className="h-4 w-4" />}
+                    </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

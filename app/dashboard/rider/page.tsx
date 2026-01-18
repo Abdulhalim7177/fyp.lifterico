@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { calculateProfileCompletion } from "@/lib/profile-utils";
 import { ProfileCompletionGate } from "@/components/profile-completion-gate";
+import { VerificationGate } from "@/components/verification-gate";
 import { RiderStatusToggle } from "./rider-status-toggle";
 import { Suspense } from "react";
 
@@ -22,6 +23,14 @@ async function RiderContent() {
 
   if (completionPercentage < 70) {
     return <ProfileCompletionGate percentage={completionPercentage} />;
+  }
+
+  // Verification Gate
+  if (riderProfile?.verification_status !== 'verified') {
+    return <VerificationGate 
+      status={riderProfile?.verification_status || 'unverified'} 
+      reason={riderProfile?.rejection_reason}
+    />;
   }
 
   const isOnline = riderProfile?.current_status === 'online';

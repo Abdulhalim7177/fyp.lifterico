@@ -2,12 +2,13 @@
 
 ## Current State Analysis
 
-The project is currently in **Sprint 2 (Profiles & Business Verification)** of Phase 1.
+The project is currently starting **Sprint 3 (Order Management Core)** of Phase 1.
 
 *   **Authentication:** Fully implemented with Sign Up/Login and role assignment.
 *   **Database:** Role-based profiles are set up and integrated with the UI.
 *   **Profile Management:** Real-time data fetching and updating is implemented via the `/settings` page.
 *   **Access Control:** A **Profile Completion Gate (70%)** is active, protecting dashboards for SME, Logistics, and Rider roles.
+*   **Business Verification:** Admins can view uploaded documents, approve accounts, or reject them with a reason.
 *   **Dashboards:** Role-specific dashboards now fetch real user/business data from Supabase.
 *   **Security:** RBAC Middleware enforces role-specific route access.
 
@@ -19,8 +20,7 @@ The project is currently in **Sprint 2 (Profiles & Business Verification)** of P
     *   [x] "Edit Profile" forms for all roles.
     *   [x] Profile Completion Gate (70% logic).
     *   [x] Document upload (Storage) for verification.
-    *   [x] Admin "Upgrade Requests" logic.
-
+    *   [x] Admin "Upgrade Requests" logic (Approve/Reject with reason).
 
 ## Implementation Roadmap
 
@@ -39,23 +39,23 @@ This roadmap compares the current state with the requirements and outlines the r
     *   RBAC Middleware (Redirects users to correct dashboard).
     *   Static UI Dashboards for all 5 roles.
 
-#### Sprint 2: Profiles & Business Verification (Next Up)
+#### Sprint 2: Profiles & Business Verification (Completed)
 *   **Goal:** Establish trust and identity.
-*   **Expected Outcome:** Users can complete their profiles with real data, and Admins can verify businesses.
-*   **Key Tasks:**
-    *   [ ] **API/DB:** Create API routes to fetch/update profile data from Supabase (replacing mock data).
-    *   [ ] **UI:** "Edit Profile" forms for SMEs and Logistics.
-    *   [ ] **Feature:** Document upload (Storage) for verification.
-    *   [ ] **Admin:** Real "Upgrade Requests" logic in Admin dashboard.
-*   **Success Metric:** Users see their actual name/details on dashboards; Admins can approve a request in DB.
+*   **Status:** ✅ **DONE**
+*   **Deliverables:**
+    *   [x] **API/DB:** Create API routes to fetch/update profile data from Supabase.
+    *   [x] **UI:** "Edit Profile" forms for SMEs and Logistics.
+    *   [x] **Feature:** Document upload (Storage) for verification.
+    *   [x] **Admin:** Real "Upgrade Requests" logic in Admin dashboard.
 
-#### Sprint 3: Order Management Core (Next Up)
+#### Sprint 3: Order Management Core (Current Focus)
 *   **Goal:** The heart of the system—creating and moving orders.
 *   **Expected Outcome:** SMEs can create orders that Logistics companies can see.
 *   **Key Tasks:**
-    *   [ ] **DB:** Create `orders` table (Pickup/Dropoff coords, price, status).
+    *   [ ] **DB:** Create `orders` table (Pickup/Dropoff coords, price, status, Sender/Receiver info).
     *   [ ] **SME:** "New Order" wizard (Step 1: Details, Step 2: Address).
     *   [ ] **Logistics:** "Available Orders" list fetching from DB.
+    *   [ ] **Rider:** "My Jobs" list.
 *   **Success Metric:** An order created by an SME appears in the Logistics dashboard database query.
 
 ---

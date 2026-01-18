@@ -8,7 +8,7 @@ This document outlines the phase-by-phase and sprint-by-sprint implementation pl
 **Goal:** Enable user registration, business verification, and the core ability to create and manage delivery orders.
 **Modules:** Auth, User, Business, Order, Storage.
 
-### Sprint 1: Foundation & Authentication (Completed/In-Progress)
+### Sprint 1: Foundation & Authentication (Completed)
 *   **Goal:** Secure system access and role-based environment.
 *   **Tasks:**
     *   [x] Setup Next.js + Supabase environment.
@@ -17,17 +17,17 @@ This document outlines the phase-by-phase and sprint-by-sprint implementation pl
     *   [x] Create basic dashboards for all user roles (Admin, SME, Logistics, Rider, Customer).
     *   [ ] Fix Authentication edge cases (Password Reset, Email Confirmation flow).
 
-### Sprint 2: Profiles & Business Verification
+### Sprint 2: Profiles & Business Verification (Completed)
 *   **Goal:** Establish trust and identity for businesses and riders.
 *   **Tasks:**
     *   [x] **Database:** Finalize `profiles`, `sme_profiles`, `logistics_profiles` schemas.
-    [x] **UI/UX:** Create "Complete Profile" forms for SMEs and Logistics companies.
-    [x] **Logic:** Implement Profile Completion Score (70% threshold gate).
-    [x] **Storage:** Implement file upload for business registration documents (CAC, etc.).
-    [x] **Admin:** Build the "Business Verification" view in Admin Dashboard to approve/reject profiles.
-    [x] **Logic:** Restrict order creation/acceptance to verified accounts only.
+    *   [x] **UI/UX:** Create "Complete Profile" forms for SMEs and Logistics companies.
+    *   [x] **Logic:** Implement Profile Completion Score (70% threshold gate).
+    *   [x] **Storage:** Implement file upload for business registration documents (CAC, etc.).
+    *   [x] **Admin:** Build the "Business Verification" view in Admin Dashboard to approve/reject profiles.
+    *   [x] **Logic:** Restrict order creation/acceptance to verified accounts only.
 
-### Sprint 3: Order Management Core
+### Sprint 3: Order Management Core (In Progress)
 *   **Goal:** The heart of the system—creating and moving orders.
 *   **Tasks:**
     *   [ ] **Database:** Create `orders` table with status enums (`PENDING`, `ASSIGNED`, `DELIVERED`, etc.).

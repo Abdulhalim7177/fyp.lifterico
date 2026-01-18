@@ -4,8 +4,9 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
-
 import { Copyright } from "@/components/copyright";
+import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { MobileSidebar } from "@/components/mobile-sidebar";
 
 export default function ProtectedLayout({
   children,
@@ -13,37 +14,61 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold text-xl">
-              <Link href={"/dashboard"}>Lifterico</Link>
-              <nav className="flex items-center gap-4 ml-4 text-sm font-medium text-muted-foreground">
-                <Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link>
-                <Link href="/dashboard/settings" className="hover:text-primary transition-colors">Settings</Link>
-              </nav>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          {children}
-        </div>
+    <div className="flex min-h-screen bg-muted/30">
+      {/* Desktop Sidebar */}
+      <aside className="hidden w-64 flex-col border-r bg-background/60 backdrop-blur-xl md:flex fixed inset-y-0 z-50">
+         <div className="flex h-16 items-center border-b px-6">
+            <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl tracking-tight">
+               Lifterico
+            </Link>
+         </div>
+         <div className="flex-1 overflow-y-auto">
+            <DashboardSidebar className="px-2" />
+         </div>
+      </aside>
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            <Copyright />
-          </p>
-          <ThemeSwitcher />
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 md:ml-64 transition-all duration-300 min-h-screen">
+        <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur px-6 shadow-sm">
+           <MobileSidebar />
+           
+           <div className="md:hidden font-bold text-lg tracking-tight ml-2">
+              Lifterico
+           </div>
+
+           <div className="w-full flex-1">
+             {/* Search or Breadcrumbs */}
+           </div>
+           
+           <div className="flex items-center gap-4">
+              <ThemeSwitcher />
+              {!hasEnvVars ? (
+                <EnvVarWarning />
+              ) : (
+                <Suspense>
+                  <AuthButton />
+                </Suspense>
+              )}
+           </div>
+        </header>
+
+        <main className="flex-1 p-4 lg:p-6">
+           <div className="container max-w-7xl mx-auto">
+             {children}
+           </div>
+        </main>
+
+        <footer className="border-t bg-background/50 py-6 mt-auto">
+           <div className="container flex flex-col items-center justify-between gap-4 md:h-10 md:flex-row max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+               <div className="text-center text-xs leading-loose text-muted-foreground md:text-left">
+                  <Copyright />
+               </div>
+               <div className="sm:hidden">
+                  <ThemeSwitcher />
+               </div>
+           </div>
         </footer>
       </div>
-    </main>
+    </div>
   );
 }
