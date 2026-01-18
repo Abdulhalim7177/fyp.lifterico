@@ -26,7 +26,10 @@ async function LogisticsContent() {
 
   // Verification Gate
   if (logisticsProfile?.verification_status !== 'verified') {
-    return <VerificationGate status={logisticsProfile?.verification_status || 'unverified'} />;
+    return <VerificationGate 
+      status={logisticsProfile?.verification_status || 'unverified'} 
+      reason={logisticsProfile?.rejection_reason}
+    />;
   }
 
   const companyName = logisticsProfile?.company_name || "Logistics Company";
@@ -42,7 +45,7 @@ async function LogisticsContent() {
         <Button variant="outline">Manage Fleet</Button>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Riders</CardTitle>

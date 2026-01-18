@@ -32,6 +32,8 @@ export function ProfileForm({ user, role }: ProfileFormProps) {
   const [smeData, setSmeData] = useState({ business_name: "", business_address: "", industry_type: "" });
   const [logisticsData, setLogisticsData] = useState({ company_name: "", registration_number: "", fleet_size: 0 });
   const [riderData, setRiderData] = useState({ vehicle_type: "", license_plate: "" });
+  
+  const [verificationStatus, setVerificationStatus] = useState<string>("");
 
   useEffect(() => {
     async function getProfile() {
@@ -60,6 +62,7 @@ export function ProfileForm({ user, role }: ProfileFormProps) {
               industry_type: data.industry_type || "" 
             });
             setDocuments(data.documents || []);
+            setVerificationStatus(data.verification_status);
           }
         } else if (role === 'logistics') {
           const { data } = await supabase.from("logistics_profiles").select("*").eq("id", user.id).single();
@@ -70,6 +73,7 @@ export function ProfileForm({ user, role }: ProfileFormProps) {
               fleet_size: data.fleet_size || 0 
             });
             setDocuments(data.documents || []);
+            setVerificationStatus(data.verification_status);
           }
         } else if (role === 'rider') {
           const { data } = await supabase.from("rider_profiles").select("*").eq("id", user.id).single();
@@ -78,6 +82,7 @@ export function ProfileForm({ user, role }: ProfileFormProps) {
               vehicle_type: data.vehicle_type || "", 
               license_plate: data.license_plate || "" 
             });
+            setVerificationStatus(data.verification_status);
           }
         }
       } catch (error) {
@@ -110,20 +115,28 @@ export function ProfileForm({ user, role }: ProfileFormProps) {
 
       // 2. Update Role Profile
       let rError = null;
+      
+      const shouldResetStatus = verificationStatus === 'unverified' || verificationStatus === 'rejected';
+      const commonUpdate = shouldResetStatus ? { verification_status: 'pending' } : {};
+
       if (role === 'sme') {
-        const { error } = await supabase.from("sme_profiles").update(smeData).eq("id", user.id);
+        const { error } = await supabase.from("sme_profiles").update({ ...smeData, ...commonUpdate }).eq("id", user.id);
         rError = error;
       } else if (role === 'logistics') {
-        const { error } = await supabase.from("logistics_profiles").update(logisticsData).eq("id", user.id);
+        const { error } = await supabase.from("logistics_profiles").update({ ...logisticsData, ...commonUpdate }).eq("id", user.id);
         rError = error;
       } else if (role === 'rider') {
-        const { error } = await supabase.from("rider_profiles").update(riderData).eq("id", user.id);
+        const { error } = await supabase.from("rider_profiles").update({ ...riderData, ...commonUpdate }).eq("id", user.id);
         rError = error;
       }
 
       if (rError) throw rError;
 
-      setMessage({ type: 'success', text: "Profile updated successfully!" });
+      if (shouldResetStatus) {
+        setVerificationStatus('pending');
+      }
+
+      setMessage({ type: 'success', text: shouldResetStatus ? "Profile updated and submitted for review!" : "Profile updated successfully!" });
     } catch (error: any) {
       setMessage({ type: 'error', text: error.message || "Failed to update profile" });
     } finally {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, FileText, ExternalLink, Calendar, MapPin, Phone, User, Building } from "lucide-react";
+import { ArrowLeft, FileText, ExternalLink, Calendar, MapPin, Phone, User, Building, Truck, Bike, CreditCard } from "lucide-react";
 import { VerificationActions } from "./verification-actions";
 
 export const dynamic = "force-dynamic";
@@ -125,6 +125,42 @@ export default async function VerificationDetailPage(props: PageProps) {
                     <div className="flex items-center gap-2">
                       <Building className="h-4 w-4 text-muted-foreground" />
                       <span>{data.industry_type}</span>
+                    </div>
+                  </div>
+                )}
+                {data.fleet_size !== undefined && (
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-muted-foreground">Fleet Size</label>
+                    <div className="flex items-center gap-2">
+                      <Truck className="h-4 w-4 text-muted-foreground" />
+                      <span>{data.fleet_size} vehicles</span>
+                    </div>
+                  </div>
+                )}
+                {data.vehicle_type && (
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-muted-foreground">Vehicle Type</label>
+                    <div className="flex items-center gap-2">
+                      <Bike className="h-4 w-4 text-muted-foreground" />
+                      <span className="capitalize">{data.vehicle_type}</span>
+                    </div>
+                  </div>
+                )}
+                {data.license_plate && (
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-muted-foreground">License Plate</label>
+                    <div className="flex items-center gap-2">
+                      <CreditCard className="h-4 w-4 text-muted-foreground" />
+                      <span className="uppercase">{data.license_plate}</span>
+                    </div>
+                  </div>
+                )}
+                {data.license_number && (
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-muted-foreground">License Number</label>
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-muted-foreground" />
+                      <span>{data.license_number}</span>
                     </div>
                   </div>
                 )}
