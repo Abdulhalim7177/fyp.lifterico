@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Bike, DollarSign, Settings } from "lucide-react";
+import { LayoutDashboard, Bike, DollarSign, Settings, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function RiderSidebar() {
@@ -14,6 +14,7 @@ export function RiderSidebar() {
     { href: "/dashboard/rider/deliveries", label: "My Deliveries", icon: Bike },
     { href: "/dashboard/rider/earnings", label: "Earnings", icon: DollarSign },
     { href: "/dashboard/settings", label: "Settings", icon: Settings },
+    { href: "/help", label: "Help & Support", icon: HelpCircle },
   ];
 
   return (

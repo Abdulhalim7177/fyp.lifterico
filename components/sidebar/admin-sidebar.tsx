@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Users, ShieldCheck, Settings } from "lucide-react";
+import { LayoutDashboard, Users, ShieldCheck, Settings, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function AdminSidebar() {
@@ -14,6 +14,7 @@ export function AdminSidebar() {
     { href: "/dashboard/admin/verifications", label: "Verifications", icon: ShieldCheck },
     { href: "/dashboard/admin/users", label: "Users", icon: Users },
     { href: "/dashboard/settings", label: "Settings", icon: Settings },
+    { href: "/help", label: "Help & Support", icon: HelpCircle },
   ];
 
   return (

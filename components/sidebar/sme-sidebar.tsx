@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, PlusCircle, Package, Settings, History } from "lucide-react";
+import { LayoutDashboard, PlusCircle, Package, Settings, History, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function SmeSidebar() {
@@ -15,6 +15,7 @@ export function SmeSidebar() {
     { href: "/dashboard/sme/orders", label: "My Orders", icon: Package },
     { href: "/dashboard/sme/history", label: "History", icon: History },
     { href: "/dashboard/settings", label: "Settings", icon: Settings },
+    { href: "/help", label: "Help & Support", icon: HelpCircle },
   ];
 
   return (

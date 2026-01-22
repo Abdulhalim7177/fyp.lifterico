@@ -9,6 +9,7 @@ import { calculateProfileCompletion } from "@/lib/profile-utils";
 import { ProfileCompletionGate } from "@/components/profile-completion-gate";
 import { VerificationGate } from "@/components/verification-gate";
 import { Suspense } from "react";
+import { QuickLinks } from "@/components/dashboard/quick-links";
 
 async function LogisticsContent() {
   const supabase = await createClient();
@@ -83,6 +84,8 @@ async function LogisticsContent() {
         </div>
       </div>
 
+      <QuickLinks role="logistics" />
+
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -144,7 +147,7 @@ async function LogisticsContent() {
                   <div key={i} className="flex items-center justify-between p-3 border rounded-lg">
                     <div className="flex items-center gap-4">
                        <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center relative">
-                          <span className="font-bold text-xs">{rider.profiles?.full_name?.charAt(0) || "R"}</span>
+                          <span className="font-bold text-xs">{rider.profiles?.[0]?.full_name?.charAt(0) || "R"}</span>
                           {rider.verification_status === 'verified' && (
                             <div className="absolute -right-1 -bottom-1 bg-primary text-[8px] text-white rounded-full p-0.5">
                               <CheckCircle className="h-2 w-2" />
@@ -153,7 +156,7 @@ async function LogisticsContent() {
                        </div>
                        <div>
                           <div className="flex items-center gap-2">
-                            <h4 className="font-semibold text-sm">{rider.profiles?.full_name || "Unknown"}</h4>
+                            <h4 className="font-semibold text-sm">{rider.profiles?.[0]?.full_name || "Unknown"}</h4>
                             {rider.verification_status !== 'verified' && <Badge variant="destructive" className="text-[8px] h-3 px-1">Unverified</Badge>}
                           </div>
                           <p className="text-xs text-muted-foreground">{rider.license_plate} • {rider.vehicle_type}</p>

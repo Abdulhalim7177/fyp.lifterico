@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Users, Search, Truck, Settings } from "lucide-react";
+import { LayoutDashboard, Users, Search, Truck, Settings, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function LogisticsSidebar() {
@@ -15,6 +15,7 @@ export function LogisticsSidebar() {
     { href: "/dashboard/logistics/orders/available", label: "Find Orders", icon: Search },
     { href: "/dashboard/logistics/orders", label: "Active Deliveries", icon: Truck },
     { href: "/dashboard/settings", label: "Settings", icon: Settings },
+    { href: "/help", label: "Help & Support", icon: HelpCircle },
   ];
 
   return (

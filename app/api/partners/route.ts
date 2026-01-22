@@ -21,13 +21,13 @@ export async function GET(request: Request) {
     const { data: riders } = await supabase
       .from('rider_profiles')
       .select(`
-        id, 
-        vehicle_type, 
-        profiles:id (full_name)
+        id,
+        vehicle_type,
+        profiles (full_name)
       `)
       .is('logistics_id', null)
       .eq('verification_status', 'verified');
-      
+
       // Note: rider_profiles has id FK to profiles. We need name from profiles.
       // The query above uses Supabase syntax for joining.
 
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
       logistics: logistics || [],
       riders: riders?.map(r => ({
         id: r.id,
-        name: r.profiles?.full_name || "Unknown Rider",
+        name: r.profiles?.[0]?.full_name || "Unknown Rider",
         vehicle: r.vehicle_type
       })) || []
     });

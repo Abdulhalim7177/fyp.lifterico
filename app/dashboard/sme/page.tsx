@@ -9,6 +9,7 @@ import { calculateProfileCompletion } from "@/lib/profile-utils";
 import { ProfileCompletionGate } from "@/components/profile-completion-gate";
 import { VerificationGate } from "@/components/verification-gate";
 import { Suspense } from "react";
+import { QuickLinks } from "@/components/dashboard/quick-links";
 
 async function SmeContent() {
   const supabase = await createClient();
@@ -80,6 +81,8 @@ async function SmeContent() {
           </Link>
         </Button>
       </div>
+
+      <QuickLinks role="sme" />
 
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
         <Card>
