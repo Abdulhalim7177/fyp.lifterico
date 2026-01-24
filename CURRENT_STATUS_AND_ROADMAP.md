@@ -2,14 +2,14 @@
 
 ## Current State Analysis
 
-The project has completed **Phase 1** and is deep into **Phase 2 (Logistics Operations)**.
-Sprint 3 (Order Management) and Sprint 4 (Fleet Management) are effectively **Complete**.
-The focus is now on **Sprint 5 (Dispatch Logic)**, specifically enabling logistics companies to assign orders to their fleet.
+The project has completed **Phase 1** and **Phase 2 (Logistics Operations)**.
+Sprint 3 (Order Management) through Sprint 5 (Dispatch Logic) are effectively **Complete**.
+The focus is now on **Sprint 6 (Map Integration)**.
 
 *   **Authentication & Profiles:** ✅ Done.
-*   **Order Management:** ✅ Done. SMEs can create orders, and Logistics companies can accept them from a pool.
-*   **Fleet Management:** ✅ Done. Logistics can invite riders, and riders can accept invites.
-*   **Rider App:** 🟡 Partially Done. Riders can see assigned jobs and update status, but the "Assignment" step from the Logistics side is missing.
+*   **Order Management:** ✅ Done. SMEs can create orders, and Logistics companies can accept them.
+*   **Fleet Management:** ✅ Done. Logistics can manage riders and track status.
+*   **Rider App:** ✅ Done. Riders can accept jobs and update delivery status.
 
 #### Sprint 3: Order Management Core (Completed)
 *   **Status:** ✅ **DONE**
@@ -26,6 +26,14 @@ The focus is now on **Sprint 5 (Dispatch Logic)**, specifically enabling logisti
     *   [x] **DB:** `rider_profiles` linked to `logistics_profiles`.
     *   [x] **UI:** "My Fleet" dashboard.
     *   [x] **Rider:** Invite acceptance flow.
+
+#### Sprint 5: Dispatch & Assignment Logic (Completed)
+*   **Status:** ✅ **DONE**
+*   **Deliverables:**
+    *   [x] **Logic:** Manual Assignment Modal for Logistics Admins.
+    *   [x] **UI:** Animated success feedback for order operations.
+    *   [x] **Feature:** Rider contact details (Phone/Call) integrated for SMEs and Customers.
+    *   [x] **Rider App:** "New Job" notification logic.
 
 ## Implementation Roadmap
 
@@ -48,22 +56,10 @@ This roadmap compares the current state with the requirements and outlines the r
 #### Sprint 4: Fleet & Rider Management
 *   **Status:** ✅ **DONE**
 
-#### Sprint 5: Dispatch & Assignment Logic (Current Focus)
-*   **Goal:** Efficiently matching orders to riders.
-*   **Expected Outcome:** A Logistics manager can assign a specific order to a specific rider.
-*   **Key Tasks:**
-    *   [ ] **Logic:** Manual Assignment Modal for Logistics Admins.
-    *   [x] **Rider App:** "New Job" notification/modal for the assigned rider.
+#### Sprint 5: Dispatch & Assignment Logic
+*   **Status:** ✅ **DONE**
 
-#### Sprint 6: Map Integration
-*   **Goal:** Visualizing locations.
-*   **Expected Outcome:** Users can see order locations on a map.
-*   **Key Tasks:**
-    *   [ ] **Tech:** Integrate Leaflet/OpenStreetMap.
-    *   [ ] **UI:** Replace text addresses with Lat/Long selection on Order Creation.
-    *   [ ] **UI:** Map view in Order Details.
-
-#### Sprint 6: Map Integration
+#### Sprint 6: Map Integration (Next Focus)
 *   **Goal:** Visualizing locations.
 *   **Expected Outcome:** Users can see order locations on a map.
 *   **Key Tasks:**
